@@ -6,7 +6,6 @@ import {
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Audio } from 'expo-av';
-import Animated, { FadeInUp, FadeInDown } from 'react-native-reanimated';
 
 export default function App() {
   const [appPronto, setAppPronto] = useState(false);
@@ -41,7 +40,6 @@ export default function App() {
         primeirosSocorros: 'Mantenha a vítima calma e aguarde atendimento.'
       };
 
-      // --- LÓGICA DE IA AVANÇADA (Dicionário de Sintomas) ---
       if (texto.includes('sangue') || texto.includes('hemorragia') || texto.includes('corte profundo')) {
         analise = {
           gravidade: 7, status: 'URGENTE (AMARELO)', cor: '#f39c12', icone: 'alert-circle',
@@ -76,9 +74,9 @@ export default function App() {
     return (
       <LinearGradient colors={['#D32F2F', '#8B0000']} style={styles.splashContainer}>
         <StatusBar barStyle="light-content" />
-        <Animated.View entering={FadeInDown.duration(1000)}>
+        <View>
           <MaterialCommunityIcons name="shield-cross" size={120} color="#FFF" />
-        </Animated.View>
+        </View>
         <Text style={styles.splashTitle}>ANJO DA VIDA</Text>
         <Text style={styles.splashTagline}>Triagem com Inteligência Artificial</Text>
         <TouchableOpacity style={styles.startBtn} onPress={() => setAppPronto(true)}>
@@ -100,7 +98,7 @@ export default function App() {
       </View>
 
       <ScrollView contentContainerStyle={styles.content}>
-        <Animated.View entering={FadeInUp}>
+        <View>
           <Text style={styles.label}>O que está acontecendo?</Text>
           <TextInput
             style={styles.input}
@@ -119,10 +117,10 @@ export default function App() {
               <Text style={styles.mainBtnText}>ANALISAR AGORA</Text>
             )}
           </TouchableOpacity>
-        </Animated.View>
+        </View>
 
         {resultado && (
-          <Animated.View entering={FadeInUp.springify()} style={[styles.card, { borderLeftColor: resultado.cor }]}>
+          <View style={[styles.card, { borderLeftColor: resultado.cor }]}>
             <View style={styles.cardHeader}>
               <MaterialCommunityIcons name={resultado.icone} size={32} color={resultado.cor} />
               <Text style={[styles.statusTxt, { color: resultado.cor }]}>{resultado.status}</Text>
@@ -137,7 +135,7 @@ export default function App() {
             <View style={styles.socorroBox}>
                <Text style={styles.socorroBody}>{resultado.primeirosSocorros}</Text>
             </View>
-          </Animated.View>
+          </View>
         )}
       </ScrollView>
     </SafeAreaView>
